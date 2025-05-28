@@ -1,7 +1,8 @@
 import React, {useState} from "react";
+import "./Restaurante.css"; // Asegúrate de tener un archivo CSS para estilos
 
 const Restaurante = (props)=>{
-    const{nombre, direccion, tipo, imagen, onlike, handlerDislikeTotales, handlerlikeError } =props;
+    const{nombre, direccion, tipo, imagen, onlike, handlerDislikeTotales} =props;
     //const [likes, setLikes] = useState(0);
     //const [dislikes, setDislikes] = useState(0);
     const [preferencia, setPreferencia] = useState(
@@ -50,7 +51,6 @@ const Restaurante = (props)=>{
             };
         });
         handlerDislikeTotales();//llamar funcion que viene de App.js
-        handlerlikeError();//llamar funcion que viene de App.js
     }
 
     
@@ -64,7 +64,6 @@ const Restaurante = (props)=>{
             {<button onClick={handlerLike}>Like</button>}
             <h4>dislike: {dislikes}</h4>
             {<button onClick={handlerDislike}>Dislike</button>}
-            <h4>{handlerlikeError}</h4>
         </div>);
 }
 export default Restaurante;
