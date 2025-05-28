@@ -21,12 +21,18 @@ function App() {
   }
 
   const handlerDislikeTotales = () => {
-    setLikesTotales(prevState => {
-      return (prevState -1);
-    });
-  }
+  setLikesTotales(prevState => {
+    if (prevState <= 0) {
+      setMensajeErrorLikes("No se puede tener likes negativos");
+      return prevState; // No decrementa si está en 0
+    } else {
+      setMensajeErrorLikes("");
+      return prevState - 1;
+    }
+  });
+}
 
-  //validacion de likes totales
+  //validacion de likes totales para que cuendo sea igual a cero no se pueda tener likes negativos
   const handlerlikeError = () => {
     if (likesTotales <= 0) {
       setMensajeErrorLikes("No se puede tener likes negativos");
