@@ -64,6 +64,30 @@ const Restaurante = (props)=>{
             {<button onClick={handlerLike}>Like</button>}
             <h4>dislike: {dislikes}</h4>
             {<button onClick={handlerDislike}>Dislike</button>}
+            {/* //crea un formulario que tenga un titulo "Crear Restaurante", labels de nombre, direccion, tipo (es un comboboc), reputacion y un boton Ingresar Restaurante */}
+            <div>
+                <form>
+                <h2>Crear Restaurante</h2>
+                <label>Nombre:</label>
+                <input type="text" placeholder="Nombre del restaurante" />
+                <br />
+                <label>Dirección:</label>
+                <input type="text" placeholder="Dirección del restaurante" />
+                <br />
+                <label>Tipo:</label>
+                <select>
+                    <option value="Panadería">Panadería</option>
+                    <option value="Comida Rápida">Comida Rápida</option>
+                    <option value="Cafetería">Cafetería</option>
+                </select>
+                <br />
+                <label>Reputación:</label>
+                <input type="number" min="1" max="5" placeholder="Reputación del restaurante" />
+                <br />
+                <button type="submit">Ingresar Restaurante</button>
+                </form>
+            </div>
+            
         </div>);
 }
 export default Restaurante;
