@@ -1,51 +1,55 @@
-import React, {useState} from "react";
-import "./Restaurante.css";
+import React, { useState } from "react"; // Importa React y el hook useState para manejar el estado local
+import "./Restaurante.css"; // Importa los estilos CSS para este componente
 
-const Restaurante = (props)=>{
-    const{nombre, direccion, tipo, imagen, valoracion, onlike, handlerDislikeTotales} =props;
-    const [preferencia, setPreferencia] = useState(
-        {
-            likes: 0,
-            dislikes: 0
-        }
-    );
+// Componente funcional Restaurante que recibe props
+const Restaurante = (props) => {
+    // Desestructura las props recibidas desde App.js
+    const { nombre, direccion, tipo, imagen, valoracion, onlike, handlerDislikeTotales } = props;
 
+    // Estado local para likes y dislikes individuales de este restaurante
+    const [preferencia, setPreferencia] = useState({
+        likes: 0,      // Inicializa los likes en 0
+        dislikes: 0    // Inicializa los dislikes en 0
+    });
+
+    // Función que maneja el evento de dar like
     const handlerLike = () => {
         setPreferencia((prevState) => ({
-            ...prevState,
-            likes: prevState.likes + 1
+            ...prevState,                // Mantiene el resto del estado igual
+            likes: prevState.likes + 1   // Suma 1 a los likes
         }));
-        onlike();//llamar funcion que viene de App.js 
+        onlike(); // Llama a la función que viene de App.js para aumentar el contador global de likes
     }
 
+    // Obtiene los valores actuales de likes y dislikes del estado local
     const likes = preferencia.likes;
     const dislikes = preferencia.dislikes;
-    
+
+    // Función que maneja el evento de dar dislike
     const handlerDislike = () => {
         setPreferencia((prevState) => ({
-            ...prevState,
-            dislikes: prevState.dislikes - 1
+            ...prevState,                   // Mantiene el resto del estado igual
+            dislikes: prevState.dislikes - 1 // Resta 1 a los dislikes
         }));
-        handlerDislikeTotales();//llamar funcion que viene de App.js
+        handlerDislikeTotales(); // Llama a la función que viene de App.js para disminuir el contador global de likes
     }
 
-    
-        return(
-        <div>
-            <div id="restaurante">
-                <h1>Nombre: {nombre}</h1>
-                <h3>Direccion: {direccion}</h3>
-                <h4>Tipo: {tipo}</h4>
-                <img src={imagen} alt={nombre}/>
-                {valoracion && <h4>Valoración: {valoracion}</h4>}
-                <h4>Likes: {likes}</h4>
-                <button onClick={handlerLike}>Like</button>
-                <h4>Dislike: {dislikes}</h4>
-                <button onClick={handlerDislike}>Dislike</button>
+    // Renderiza el componente Restaurante
+    return (
+        <div> {/* Contenedor principal del restaurante */}
+            <div id="restaurante"> {/* Contenedor con estilos específicos */}
+                <h1>Nombre: {nombre}</h1> {/* Muestra el nombre del restaurante */}
+                <h3>Direccion: {direccion}</h3> {/* Muestra la dirección */}
+                <h4>Tipo: {tipo}</h4> {/* Muestra el tipo de restaurante */}
+                <img src={imagen} alt={nombre} /> {/* Muestra la imagen */}
+                {valoracion && <h4>Valoración: {valoracion}</h4>} {/* Si hay valoración, la muestra */}
+                <h4>Likes: {likes}</h4> {/* Muestra los likes individuales */}
+                <button onClick={handlerLike}>Like</button> {/* Botón para dar like */}
+                <h4>Dislike: {dislikes}</h4> {/* Muestra los dislikes individuales */}
+                <button onClick={handlerDislike}>Dislike</button> {/* Botón para dar dislike */}
             </div>
-            
-            
-        </div>);
-
+        </div>
+    );
 }
-export default Restaurante;
+
+export default Restaurante; // Exporta el componente para que pueda ser usado en App.js
