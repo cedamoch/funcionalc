@@ -1,31 +1,36 @@
-import React, { useState } from "react";
-import "./Restaurante.css";
+import React, { useState } from "react"; // Importa React y el hook useState para manejar el estado local del formulario
+import "./Restaurante.css"; // Importa los estilos CSS para el formulario
 
-function FormularioAgregarRestaurante({ onAgregar }) {
+// Componente funcional para agregar un nuevo restaurante
+function FormularioAgregarRestaurante({ onAgregar }) { // Recibe la función onAgregar como prop desde App.js
+    // Estado local para almacenar los valores de los campos del formulario
     const [form, setForm] = useState({
-        nombre: "",
-        direccion: "",
-        tipo: "",
-        imagen: "",
-        valoracion: ""
+        nombre: "",      // Campo para el nombre del restaurante
+        direccion: "",   // Campo para la dirección
+        tipo: "",        // Campo para el tipo de restaurante (combo box)
+        imagen: "",      // Campo para la URL de la imagen (opcional)
+        valoracion: ""   // Campo para la valoración (puntuación)
     });
 
+    // Maneja los cambios en los campos del formulario
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm(prev => ({
-            ...prev,
-            [name]: value
+        const { name, value } = e.target; // Extrae el nombre y valor del campo modificado
+        setForm(prev => ({                // Actualiza el estado del formulario
+            ...prev,                      // Mantiene los valores anteriores
+            [name]: value                 // Actualiza solo el campo modificado
         }));
     };
 
+    // Maneja el envío del formulario
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Previene el comportamiento por defecto del formulario (recargar la página)
+        // Verifica que los campos obligatorios estén completos
         if (form.nombre && form.direccion && form.tipo && form.valoracion) {
-            onAgregar({
-                ...form,
-                imagen: form.imagen || "https://via.placeholder.com/150"
+            onAgregar({ // Llama a la función onAgregar (del padre) para agregar el nuevo restaurante
+                ...form, // Pasa todos los valores del formulario
+                imagen: form.imagen || "https://via.placeholder.com/150" // Si no se ingresa imagen, usa una por defecto
             });
-            setForm({
+            setForm({ // Limpia el formulario después de agregar
                 nombre: "",
                 direccion: "",
                 tipo: "",
@@ -35,21 +40,40 @@ function FormularioAgregarRestaurante({ onAgregar }) {
         }
     };
 
+    // Renderiza el formulario
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: "30px", background: "#fffbe6", padding: "20px", borderRadius: "10px" }}>
+        <form 
+            onSubmit={handleSubmit} // Asocia el evento de envío al manejador handleSubmit
+            style={{ marginTop: "30px", background: "#fffbe6", padding: "20px", borderRadius: "10px" }} // Estilos en línea
+        >
             <h2>Agregar Restaurante</h2>
             <div>
                 <label>Nombre: </label>
-                <input name="nombre" value={form.nombre} onChange={handleChange} required />
+                <input 
+                    name="nombre" // Nombre del campo (clave en el estado)
+                    value={form.nombre} // Valor actual del campo
+                    onChange={handleChange} // Manejador de cambio
+                    required // Campo obligatorio
+                />
             </div>
             <div>
                 <label>Dirección: </label>
-                <input name="direccion" value={form.direccion} onChange={handleChange} required />
+                <input 
+                    name="direccion"
+                    value={form.direccion}
+                    onChange={handleChange}
+                    required
+                />
             </div>
             <div>
                 <label>Tipo: </label>
-                <select name="tipo" value={form.tipo} onChange={handleChange} required>
-                    <option value="">Seleccione...</option>
+                <select 
+                    name="tipo"
+                    value={form.tipo}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="">Seleccione...</option> {/* Opción por defecto */}
                     <option value="Tradicional">Tradicional</option>
                     <option value="Comida Rápida">Comida Rápida</option>
                     <option value="Parrillada">Parrillada</option>
@@ -57,16 +81,29 @@ function FormularioAgregarRestaurante({ onAgregar }) {
             </div>
             <div>
                 <label>Imagen (URL): </label>
-                <input name="imagen" value={form.imagen} onChange={handleChange} />
+                <input 
+                    name="imagen"
+                    value={form.imagen}
+                    onChange={handleChange}
+                />
             </div>
             <div>
                 <label>Valoración: </label>
-                <input name="valoracion" type="number" min="1" max="5" value={form.valoracion} onChange={handleChange} required />
+                <input 
+                    name="valoracion"
+                    type="number" // Solo permite números
+                    min="1"      // Valor mínimo permitido
+                    max="5"      // Valor máximo permitido
+                    value={form.valoracion}
+                    onChange={handleChange}
+                    required
+                />
             </div>
-            <button type="submit">Agregar</button>
+            <button type="submit">Agregar</button> {/* Botón para enviar el formulario */}
         </form>
     );
 }
 
-export { FormularioAgregarRestaurante };
-export default FormularioAgregarRestaurante;
+// Exporta el componente para que pueda ser usado en App.js
+//export { FormularioAgregarRestaurante }; // Exportación nombrada (opcional, puedes eliminarla si no la usas)
+export default FormularioAgregarRestaurante; // Exportación por defecto
