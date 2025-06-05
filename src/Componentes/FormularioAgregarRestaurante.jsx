@@ -1,5 +1,7 @@
 import React, { useState } from "react"; // Importa React y el hook useState para manejar el estado local del formulario
 import "./Restaurante.css"; // Importa los estilos CSS para el formulario
+import { Link } from 'react-router-dom';
+
 
 // Componente funcional para agregar un nuevo restaurante
 function FormularioAgregarRestaurante({ onAgregar }) { // Recibe la función onAgregar como prop desde App.js
@@ -99,8 +101,10 @@ function FormularioAgregarRestaurante({ onAgregar }) { // Recibe la función onA
                     required
                 />
             </div>
-            <button type="submit">Agregar</button> {/* Botón para enviar el formulario */}
+            <button type="submit">Agregar</button> {/* Botón para enviar el formulario */}<br /><br />
+            <Link to="/home">Inicio</Link><br /><br />
         </form>
+        
     );
 }
 
