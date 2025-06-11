@@ -18,15 +18,17 @@ function App() {
     setRestaurantes(prev => [...prev, nuevoRestaurante]);
   };
 
-
-
-
+  //Funcion para eliminar el restaurante
+  const eliminarRestaurante = (indice)=>{
+    setRestaurantes(prev=>prev.filter((_,idx)=>idx !== indice));
+  };
+  
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path={"/home"} element={<Inicio />} />
-          <Route path={"/Restaurantes"} element={<ListaRestaurantes restaurantes={restaurantes} />} />
+          <Route path={"/Restaurantes"} element={<ListaRestaurantes restaurantes={restaurantes} onEliminar={eliminarRestaurante}/>} />
           <Route path={"/AgregarRestaurante"} element={<FormularioAgregarRestaurante onAgregar={agregarRestaurante}/>} />
         </Routes>
       </BrowserRouter>

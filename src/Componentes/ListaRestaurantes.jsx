@@ -3,12 +3,9 @@ import Restaurante from './Restaurante';
 import { Link } from 'react-router-dom';
 // Lista inicial de restaurantes
 
-
-function ListaRestaurantes({restaurantes}) {
+function ListaRestaurantes({restaurantes, onEliminar}) {
   const [likesTotales, setLikesTotales] = useState(0);
   const [mensajeErrorLikes, setMensajeErrorLikes] = useState("");
-
-  
 
   // Función para aumentar el contador total de likes
   const handlerLikeTotales = () => {
@@ -35,22 +32,21 @@ function ListaRestaurantes({restaurantes}) {
       <h2>Cantidad total de likes: {likesTotales}</h2>
       <h4>{mensajeErrorLikes}</h4>
       {restaurantes.map((r, idx) => (
-        <>
-          <Restaurante
-            key={idx}
-            nombre={r.nombre}
-            direccion={r.direccion}
-            tipo={r.tipo}
-            imagen={r.imagen}
-            valoracion={r.valoracion}
-            onlike={handlerLikeTotales}
-            handlerDislikeTotales={handlerDislikeTotales}
-          />
-          
-        </>
+        <Restaurante
+          key={idx}
+          nombre={r.nombre}
+          direccion={r.direccion}
+          tipo={r.tipo}
+          imagen={r.imagen}
+          valoracion={r.valoracion}
+          onlike={handlerLikeTotales}
+          handlerDislikeTotales={handlerDislikeTotales}
+          onEliminar={()=> onEliminar(idx)}
+        />
       ))}
       {/* <FormularioAgregarRestaurante onAgregar={agregarRestaurante} /> */}
       <Link to="/home">Inicio</Link><br /><br />
+      
     </>
   );
 }
