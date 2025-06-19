@@ -7,30 +7,39 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Conexion from './Componentes/Conexion';
 import axios from 'axios';
 
-/*const listaRestauranteInicial = [
-  {nombre:"Roldos", direccion:"av de la prensa", tipo:"Panaderia", imagen:"https://plus.unsplash.com/premium_photo-1695405363183-e55554168063?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2VuJTIwZGlnaXRhbHxlbnwwfHwwfHx8MA%3D%3D"},
-  {nombre:"KFC", direccion:"Recreo", tipo:"comidarapida", imagen:"https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg"},
-  {nombre:"JuanValdes", direccion:"del maestro", tipo:"cafeteria", imagen:"https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?fit=960%2C720"}
-];*/
-
-
 function App() {
-  const [restaurantes, setRestaurantes] = useState();
-  // Función para agregar un nuevo restaurante a la lista
+  const [restaurantes, setRestaurantes] = useState([]);
+
+  // GET: Leer restaurantes al cargar
+  useEffect(() => {
+    axios.get('http://localhost:3000/restaurante')
+      .then(response => setRestaurantes(response.data))
+      .catch(error => console.error(error));
+  }, []);
+
+  // POST: Agregar restaurante
   const agregarRestaurante = (nuevoRestaurante) => {
-    setRestaurantes(prev => [...prev, nuevoRestaurante]);
+    axios.post('http://localhost:3000/restaurante', nuevoRestaurante)
+      .then(response => setRestaurantes(prev => [...prev, response.data]))
+      .catch(error => console.error(error));
   };
 
-  //Funcion para eliminar el restaurante
-  const eliminarRestaurante = (indice)=>{
-    setRestaurantes(prev=>prev.filter((_,idx)=>idx !== indice));
+  // DELETE: Eliminar restaurante
+  const eliminarRestaurante = (id) => {
+    // Llama a la API para eliminar el restaurante con el id proporcionado
+    axios.delete(`http://localhost:3000/restaurante/${id}`)// Hace una petición DELETE a la URL con el id del restaurante
+      .then(() => setRestaurantes(prev => prev.filter(r => r.id !== id)))// Si la petición fue exitosa, actualiza el estado eliminando el restaurante del array local
+      .catch(error => console.error(error));
   };
-  
-  useEffect(()=>{
-    axios.get('http://localhost:3000/restaurante')
-    .then(response => { setRestaurantes(response.data)})
-    .catch(error => console.error(error));
-  }, []);
+
+  // PUT: Actualizar restaurante
+ /* const actualizarRestaurante = (id, datosActualizados) => {
+    axios.put(`http://localhost:3000/restaurante/${id}`, datosActualizados)
+      .then(response => setRestaurantes(prev =>
+        prev.map(r => r.id === id ? response.data : r)
+      ))
+      .catch(error => console.error(error));
+  };*/
 
   return (
     <div className="App">
@@ -38,8 +47,8 @@ function App() {
         <Routes>
           <Route path={"/home"} element={<Inicio />} />
           <Route path={"/Servidor"} element={<Conexion />} />
-          <Route path={"/Restaurantes"} element={<ListaRestaurantes restaurantes={restaurantes} onEliminar={eliminarRestaurante}/>} />
-          <Route path={"/AgregarRestaurante"} element={<FormularioAgregarRestaurante onAgregar={agregarRestaurante}/>} />
+          <Route path={"/Restaurantes"} element={<ListaRestaurantes restaurantes={restaurantes} onEliminar={eliminarRestaurante} />}/>
+          <Route path={"/AgregarRestaurante"} element={<FormularioAgregarRestaurante onAgregar={agregarRestaurante} />}/>
         </Routes>
       </BrowserRouter>
     </div>

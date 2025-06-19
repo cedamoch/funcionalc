@@ -4,7 +4,7 @@ import "./Restaurante.css"; // Importa los estilos CSS para este componente
 // Componente funcional Restaurante que recibe props
 const Restaurante = (props) => {
     // Desestructura las props recibidas desde App.js
-    const { nombre, direccion, tipo, imagen, valoracion, onlike, handlerDislikeTotales, onEliminar } = props;
+    const {nombre, direccion, tipo, imagen, valoracion, onlike, handlerDislikeTotales, onEliminar} = props;
 
     // Estado local para likes y dislikes individuales de este restaurante
     const [preferencia, setPreferencia] = useState({

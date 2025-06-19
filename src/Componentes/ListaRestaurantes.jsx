@@ -3,7 +3,7 @@ import Restaurante from './Restaurante';
 import { Link } from 'react-router-dom';
 // Lista inicial de restaurantes
 
-function ListaRestaurantes({restaurantes, onEliminar}) {
+function ListaRestaurantes({restaurantes, onEliminar, onActualizar}) {
   const [likesTotales, setLikesTotales] = useState(0);
   const [mensajeErrorLikes, setMensajeErrorLikes] = useState("");
 
@@ -31,17 +31,23 @@ function ListaRestaurantes({restaurantes, onEliminar}) {
     <>
       <h2>Cantidad total de likes: {likesTotales}</h2>
       <h4>{mensajeErrorLikes}</h4>
-      {restaurantes.map((r, idx) => (
+      {/* 
+        Verifica que restaurantes exista y no sea null/undefined.
+        Si es así, recorre el arreglo de restaurantes y por cada uno renderiza un componente Restaurante.
+      */}
+      {restaurantes && restaurantes.map((r) => (
         <Restaurante
-          key={idx}
-          nombre={r.nombre}
-          direccion={r.direccion}
-          tipo={r.tipo}
-          imagen={r.imagen}
-          valoracion={r.valoracion}
-          onlike={handlerLikeTotales}
-          handlerDislikeTotales={handlerDislikeTotales}
-          onEliminar={()=> onEliminar(idx)}
+          key={r.id} // Clave única para que React identifique cada elemento de la lista
+          id={r.id} // Id del restaurante para eliminar o actualizar
+          nombre={r.nombre} // Nombre del restaurante
+          direccion={r.direccion} // Dirección del restaurante
+          tipo={r.tipo} // Tipo de restaurante
+          imagen={r.imagen} // URL de la imagen
+          valoracion={r.valoracion} // Valoración del restaurante
+          onlike={handlerLikeTotales} // Función para aumentar el contador global de likes
+          handlerDislikeTotales={handlerDislikeTotales} // Función para disminuir el contador global de likes
+          onEliminar={() => onEliminar(r.id)} // Función para eliminar el restaurante, pasando su id
+          onActualizar={onActualizar} // Función para actualizar el restaurante (si se implementa edición)
         />
       ))}
       {/* <FormularioAgregarRestaurante onAgregar={agregarRestaurante} /> */}
