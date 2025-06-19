@@ -103,6 +103,7 @@ function FormularioAgregarRestaurante({ onAgregar }) { // Recibe la función onA
             </div>
             <button type="submit">Agregar</button> {/* Botón para enviar el formulario */}<br /><br />
             <Link to="/home">Inicio</Link><br /><br />
+            <Link to="/Restaurantes">Lista Restaurantes </Link><br /><br />
         </form>
         
     );

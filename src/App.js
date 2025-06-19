@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Conexion from './Componentes/Conexion';
 import axios from 'axios';
+import EditarRestaurante from './Componentes/EditarRestaurante';
 
 function App() {
   const [restaurantes, setRestaurantes] = useState([]);
@@ -14,32 +15,30 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:3000/restaurante')
       .then(response => setRestaurantes(response.data))
-      .catch(error => console.error(error));
+      .catch(error => console.error('Error al cargar restaurantes: ', error));
   }, []);
 
   // POST: Agregar restaurante
   const agregarRestaurante = (nuevoRestaurante) => {
     axios.post('http://localhost:3000/restaurante', nuevoRestaurante)
       .then(response => setRestaurantes(prev => [...prev, response.data]))
-      .catch(error => console.error(error));
+      .catch(error => console.error('Error al agregar restaurante: ', error));
   };
 
   // DELETE: Eliminar restaurante
   const eliminarRestaurante = (id) => {
     // Llama a la API para eliminar el restaurante con el id proporcionado
-    axios.delete(`http://localhost:3000/restaurante/${id}`)// Hace una petición DELETE a la URL con el id del restaurante
-      .then(() => setRestaurantes(prev => prev.filter(r => r.id !== id)))// Si la petición fue exitosa, actualiza el estado eliminando el restaurante del array local
-      .catch(error => console.error(error));
+    axios.delete(`http://localhost:3000/restaurante/${id}`)
+      .then(() => setRestaurantes(prev => prev.filter(r => r.id !== id)))
+      .catch(error => console.error('Error al eliminar restaurante: ', error));
   };
 
-  // PUT: Actualizar restaurante
- /* const actualizarRestaurante = (id, datosActualizados) => {
-    axios.put(`http://localhost:3000/restaurante/${id}`, datosActualizados)
-      .then(response => setRestaurantes(prev =>
-        prev.map(r => r.id === id ? response.data : r)
-      ))
-      .catch(error => console.error(error));
-  };*/
+  const actualizarRestaurante = (id, datosActualizados) => {
+  return axios.put(`http://localhost:3000/restaurante/${id}`, datosActualizados)
+    .then(response => {setRestaurantes(prev => prev.map(r => r.id === id ? response.data : r));})
+    .catch(error => console.error('Error al actualizar restaurante:', error));
+};
+
 
   return (
     <div className="App">
@@ -49,6 +48,7 @@ function App() {
           <Route path={"/Servidor"} element={<Conexion />} />
           <Route path={"/Restaurantes"} element={<ListaRestaurantes restaurantes={restaurantes} onEliminar={eliminarRestaurante} />}/>
           <Route path={"/AgregarRestaurante"} element={<FormularioAgregarRestaurante onAgregar={agregarRestaurante} />}/>
+          <Route path={"/EditarRestaurante/:id"} element={<EditarRestaurante restaurantes={restaurantes} onActualizar={actualizarRestaurante}/>} />
         </Routes>
       </BrowserRouter>
     </div>

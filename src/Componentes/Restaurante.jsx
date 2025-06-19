@@ -1,6 +1,6 @@
 import React, { useState } from "react"; // Importa React y el hook useState para manejar el estado local
 import "./Restaurante.css"; // Importa los estilos CSS para este componente
-
+import { Link } from "react-router-dom";
 // Componente funcional Restaurante que recibe props
 const Restaurante = (props) => {
     // Desestructura las props recibidas desde App.js
@@ -47,7 +47,10 @@ const Restaurante = (props) => {
                 <button onClick={handlerLike}>Like</button> {/* Botón para dar like */}
                 <h4>Dislike: {dislikes}</h4> {/* Muestra los dislikes individuales */}
                 <button onClick={handlerDislike}>Dislike</button> {/* Botón para dar dislike */}
-                <button onClick={onEliminar} style={{marginLef: "10px"}}>Eliminar</button>
+                <button onClick={onEliminar} style={{marginLeft: "10px"}}>Eliminar</button>
+                <Link to={`/EditarRestaurante/${props.id}`}>
+                    <button style={{marginLeft: "10px"}}>Editar</button>
+                </Link>
             </div>
         </div>
     );

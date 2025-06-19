@@ -51,7 +51,9 @@ function ListaRestaurantes({restaurantes, onEliminar, onActualizar}) {
         />
       ))}
       {/* <FormularioAgregarRestaurante onAgregar={agregarRestaurante} /> */}
-      <Link to="/home">Inicio</Link><br /><br />
+      <Link to="/home">Inicio </Link> <br /> 
+      <Link to="/AgregarRestaurante">Agregar restaurante </Link><br />
+      
       
     </>
   );

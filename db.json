@@ -2,16 +2,18 @@
   "restaurante": [
     {
       "id": "1",
-      "nombre": "Roldos",
-      "direccion": "av de la prensa",
-      "tipo": "Panaderia",
-      "imagen": "https://plus.unsplash.com/premium_photo-1695405363183-e55554168063?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2VuJTIwZGlnaXRhbHxlbnwwfHwwfHx8MA%3D%3D"
+      "nombre": "Patos pizza",
+      "direccion": "Calle OE8 lote 2735 y S37C",
+      "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs7mGrmctuQAEvJkcgHCcY7djy7X2N6NcWrA&s",
+      "valoracion": "2",
+      "tipo": "Parrillada"
     },
     {
       "id": "2",
       "nombre": "KFC",
       "direccion": "Recreo",
-      "tipo": "comidarapida",
+      "tipo": "Tradicional",
+      "valoracion": "3",
       "imagen": "https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg"
     },
     {
@@ -20,6 +22,14 @@
       "direccion": "Solanda - La J",
       "tipo": "Comida Rápida",
       "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsFcJSwEPh8y_fg_G6AtU5Yk5zqVG3edz-CA&s",
+      "valoracion": "2"
+    },
+    {
+      "id": "b34e",
+      "nombre": "Ceviches de la roca",
+      "direccion": "12 de octubre",
+      "tipo": "Comida Rápida",
+      "imagen": "https://amazoniaexplorer.com/wp-content/uploads/2023/05/ceviche2.jpg",
       "valoracion": "5"
     }
   ],
