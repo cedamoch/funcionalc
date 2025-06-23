@@ -9,7 +9,7 @@ import axios from 'axios';
 import EditarRestaurante from './Componentes/EditarRestaurante';
 
 function App() {
-  const [restaurantes, setRestaurantes] = useState([]);
+  const [restaurantes, setRestaurantes] = useState([]);//variable de estado que Guarda el valor actual de la lista de restaurantes
 
   // GET: Leer restaurantes al cargar
   useEffect(() => {
@@ -33,9 +33,18 @@ function App() {
       .catch(error => console.error('Error al eliminar restaurante: ', error));
   };
 
-  const actualizarRestaurante = (id, datosActualizados) => {
+  // PUT: actualizar un restaurante existente
+const actualizarRestaurante = (id, datosActualizados) => {
+  // Realiza una petición PUT a la API, enviando los datos actualizados del restaurante con el id especificado
   return axios.put(`http://localhost:3000/restaurante/${id}`, datosActualizados)
-    .then(response => {setRestaurantes(prev => prev.map(r => r.id === id ? response.data : r));})
+    // Si la petición es exitosa, actualiza el estado local de restaurantes
+    .then(response => {
+      // Actualiza el array de restaurantes: reemplaza el restaurante con el id editado por el restaurante actualizado recibido de la respuesta
+      setRestaurantes(prev => 
+        prev.map(r => r.id === id ? response.data : r) // Si el id coincide, reemplaza por el actualizado; si no, deja el restaurante igual
+      );
+    })
+    // Si ocurre un error, lo muestra en consola
     .catch(error => console.error('Error al actualizar restaurante:', error));
 };
 
